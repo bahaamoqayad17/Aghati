@@ -14,7 +14,7 @@ import DataTable from "@/components/GlobalComponents/DataTable";
 import { Search } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { index } from "@/store/DeliverySlice";
+import { index } from "@/store/DiscountCodeSlice";
 import { useDispatch, useSelector } from "react-redux";
 const Page = () => {
   const dispatch = useDispatch();

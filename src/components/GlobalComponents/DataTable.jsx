@@ -28,6 +28,7 @@ export default function DataTable({
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
+
   useEffect(() => {
     getPagination(page, limit);
   }, [page, limit]);
@@ -39,21 +40,23 @@ export default function DataTable({
   const getFieldValue = (object, field) => {
     const fieldPath = field.split(".");
     let value = object;
-
     for (let path of fieldPath) {
-      value = value?.[path];
+      value = value[path];
       if (value === undefined) break;
     }
 
     if (field === "image") {
       return (
         <img
-          src={`https://aghaty.globalinx.net/images/${object.image}`}
+          src={`https://aghaty.globalinx.net/uploads/${object.image}`}
           alt="Image"
-          width={"60"}
-          height={"60"}
+          width={"100"}
+          height={"100%"}
         />
       );
+    }
+    if (field === "createdAt") {
+      return new Date(object.createdAt).toLocaleString();
     }
 
     return value;
@@ -78,18 +81,18 @@ export default function DataTable({
                 )}
               </TableRow>
             </TableHead>
-            <TableBody>
-              {loading ? (
-                <TableBody>
-                  <TableRow>
-                    <TableCell colSpan={20} align="center">
-                      <CircularProgress />
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              ) : (
-                items?.map((item) => (
-                  <TableRow hover key={item._id}>
+            {loading ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell colSpan={20} align="center">
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) : (
+              <TableBody>
+                {items?.map((item) => (
+                  <TableRow hover key={item.id}>
                     {resources[model]?.fields?.map((field) => (
                       <TableCell
                         key={field}
@@ -107,21 +110,24 @@ export default function DataTable({
                       </TableCell>
                     )}
                   </TableRow>
-                ))
-              )}
-            </TableBody>
+                ))}
+              </TableBody>
+            )}
           </Table>
         </Box>
       </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={count}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
+
+      {model === "sellers" && (
+        <TablePagination
+          component="div"
+          count={count}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleLimitChange}
+          page={page}
+          rowsPerPage={limit}
+          rowsPerPageOptions={[10]}
+        />
+      )}
     </Card>
   );
 }

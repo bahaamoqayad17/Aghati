@@ -69,5 +69,10 @@ export const ar = {
     english: "الإنجليزية",
     kurdish: "الكردية",
     account: "الحساب",
+    social_media: "وسائل التواصل الاجتماعي",
+    all_social_media: "جميع وسائل التواصل الاجتماعي",
+    search_social_media: "بحث في وسائل التواصل الاجتماعي",
+    add_social_media: "إضافة وسيلة تواصل اجتماعي",
+    link: "الرابط",
   },
 };

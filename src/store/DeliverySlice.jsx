@@ -20,7 +20,7 @@ export const create = createAsyncThunk(
   "deliveries/create",
   async (item, { rejectWithValue, dispatch }) => {
     try {
-      const res = await axios.post("createDelivery", item);
+      const res = await axios.post("addDelivery", item);
       dispatch(index());
       dispatch(closeModal(true));
       return res.data.delivery;

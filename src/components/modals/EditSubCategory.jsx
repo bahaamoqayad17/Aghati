@@ -5,29 +5,43 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect } from "react";
 import { create } from "@/store/SubCategoriesSlice";
 import { update } from "@/store/SubCategoriesSlice";
-import { t } from "i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { index } from "@/store/MainCategoriesSlice";
+import { useTranslation } from "react-i18next";
 
 const style = {
   marginBottom: "30px",
 };
 
 export default function EditSubCategory(props) {
+  const { t } = useTranslation();
   const { all } = useSelector(({ mainCategories }) => mainCategories);
   const dispatch = useDispatch();
-  const [item, setitem] = useState(props.item);
+  const [item, setItem] = useState(props.item);
+  const [mediaFile, setMediaFile] = useState(props?.item?.image);
 
   const handleChange = (e) => {
-    setitem({ ...item, [e.target.name]: e.target.value });
+    if (e.target.name === "image") {
+      setMediaFile(e.target.files[0]);
+    } else {
+      setItem({ ...item, [e.target.name]: e.target.value });
+    }
   };
 
   const FormSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", mediaFile);
+    formData.append("nameEN", item?.nameEN);
+    formData.append("nameAR", item?.nameAR);
+    formData.append("nameKUR", item?.nameKUR);
+    formData.append("role", item?.role);
+
     if (props.item?.id) {
-      dispatch(update({ ...item, SubCategoryId: item.id }));
+      formData.append("CategoryId", item.id);
+      dispatch(update(formData));
     } else {
-      dispatch(create(item));
+      dispatch(create(formData));
     }
   };
 
@@ -62,24 +76,18 @@ export default function EditSubCategory(props) {
           name="nameKUR"
           fullWidth
         />
-        <TextField
-          sx={style}
-          label={t("category_name")}
-          onChange={handleChange}
-          value={item?.CategoryId}
-          name="CategoryId"
-          fullWidth
-        />
+
         <TextField
           onChange={handleChange}
           sx={style}
           id="outlined-select-currency"
-          value={item?.category?.nameAR}
+          value={item?.Category?.nameAR}
+          defaultValue={item?.Category?.id}
           select
           fullWidth
           name="CategoryId"
           label={t("category")}
-          autocomplete="category"
+          autoComplete="category"
         >
           {all?.map((option) => (
             <MenuItem key={option.id} value={option.id}>
@@ -87,13 +95,26 @@ export default function EditSubCategory(props) {
             </MenuItem>
           ))}
         </TextField>
-        <input
-          type="file"
-          name="image"
-          style={style}
-          value={item?.image}
-          onChange={handleChange}
-        />
+        <input type="file" name="image" style={style} onChange={handleChange} />
+
+        <br />
+        {mediaFile && !mediaFile.name && (
+          <img
+            src={`https://aghaty.globalinx.net/uploads/${mediaFile}`}
+            alt="Image"
+            width={"100"}
+            height={"100%"}
+          />
+        )}
+
+        {mediaFile && mediaFile.name && (
+          <img
+            src={URL.createObjectURL(mediaFile)}
+            alt="New Image"
+            width={"100"}
+            height={"100%"}
+          />
+        )}
         <br />
         <Button onClick={FormSubmit} variant="contained">
           {t("save")}

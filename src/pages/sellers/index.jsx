@@ -22,7 +22,7 @@ const Page = () => {
   const { t } = useTranslation();
   const getPagination = (page, limit) => {
     page++;
-    // dispatch(index({ page, limit }));
+    dispatch(index({ offset: page, limit }));
   };
   const [openModal, setOpenModal] = useState(false);
 

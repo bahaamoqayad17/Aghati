@@ -49,7 +49,7 @@ const Page = () => {
   return (
     <>
       <Head>
-        <title>{`${process.env.APP_NAME} | Categories`}</title>
+        <title>{`${process.env.APP_NAME} | Sub Categories`}</title>
       </Head>
       <Box
         component="main"

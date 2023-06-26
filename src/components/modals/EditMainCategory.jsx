@@ -26,7 +26,7 @@ const roles = [
 export default function EditMainCategory(props) {
   const dispatch = useDispatch();
   const [item, setItem] = useState(props.item);
-  const [mediaFile, setMediaFile] = useState(null);
+  const [mediaFile, setMediaFile] = useState(props?.item?.image);
 
   const handleChange = (e) => {
     if (e.target.name === "image") {
@@ -99,6 +99,24 @@ export default function EditMainCategory(props) {
           ))}
         </TextField>
         <input type="file" name="image" style={style} onChange={handleChange} />
+        <br />
+        {mediaFile && !mediaFile.name && (
+          <img
+            src={`https://aghaty.globalinx.net/uploads/${mediaFile}`}
+            alt="Image"
+            width={"100"}
+            height={"100%"}
+          />
+        )}
+
+        {mediaFile && mediaFile.name && (
+          <img
+            src={URL.createObjectURL(mediaFile)}
+            alt="New Image"
+            width={"100"}
+            height={"100%"}
+          />
+        )}
         <br />
         <Button onClick={FormSubmit} variant="contained">
           {t("save")}

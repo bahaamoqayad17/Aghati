@@ -70,5 +70,9 @@ export const en = {
     english: "English",
     kurdish: "Kurdish",
     account: "Account",
+    social_media: "Social Media",
+    all_social_media: "All Social Media",
+    search_social_media: "Search Social Media",
+    add_social_media: "Add Social Media",
   },
 };

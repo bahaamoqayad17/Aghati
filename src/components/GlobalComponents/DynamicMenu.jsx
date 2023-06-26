@@ -7,7 +7,6 @@ import { Delete as DeleteIcon } from "../../icons/delete";
 import { Show as ShowIcon } from "../../icons/show";
 import { EditPen as EditPenIcon } from "../../icons/editPen";
 import DynamicModal from "./DynamicModal";
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import ConfirmDialog from "../ConfirmDialog";
 
@@ -66,14 +65,6 @@ export default function DynamicMenu({ item, model }) {
           <EditPenIcon fontSize="small" />
           &nbsp; {t("edit")}
         </MenuItem>
-        {/* <MenuItem>
-          <Link href={{ pathname: `/${model}/${item._id}` }}>
-            <p style={{ color: "#000", textDecoration: "none" }}>
-              <ShowIcon fontSize="small" />
-              &nbsp; {t("show")}
-            </p>
-          </Link>
-        </MenuItem> */}
         <MenuItem>
           <ConfirmDialog
             model={model}

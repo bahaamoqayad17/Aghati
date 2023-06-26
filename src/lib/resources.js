@@ -13,13 +13,13 @@ export const resources = {
     remove: removeSeller,
   },
   mainCategories: {
-    headers: ["name", "created_at"],
-    fields: ["nameAR", "createdAt"],
+    headers: ["name", "image", "created_at"],
+    fields: ["nameAR", "image", "createdAt"],
     remove: removeMainCategory,
   },
   subCategories: {
-    headers: ["name", "category_parent", "created_at"],
-    fields: ["nameAR", "Category.nameAR", "createdAt"],
+    headers: ["name", "image", "category_parent", "created_at"],
+    fields: ["nameAR", "image", "Category.nameAR", "createdAt"],
     remove: removeSubCategory,
   },
   banners: {

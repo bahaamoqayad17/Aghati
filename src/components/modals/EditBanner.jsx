@@ -13,8 +13,7 @@ const style = {
 export default function EditBanner(props) {
   const dispatch = useDispatch();
   const [item, setItem] = useState(props.item);
-  const [imageFile, setImageFile] = useState(null);
-
+  const [imageFile, setImageFile] = useState(props?.item?.image);
   const handleChange = (e) => {
     if (e.target.name === "image") {
       setImageFile(e.target.files[0]);
@@ -41,6 +40,25 @@ export default function EditBanner(props) {
       <Box>
         <h1 style={style}>{t("banner")}</h1>
         <input type="file" name="image" style={style} onChange={handleChange} />
+        <br />
+
+        {imageFile && !imageFile.name && (
+          <img
+            src={`https://aghaty.globalinx.net/uploads/${imageFile}`}
+            alt="Image"
+            width={"100"}
+            height={"100%"}
+          />
+        )}
+
+        {imageFile && imageFile.name && (
+          <img
+            src={URL.createObjectURL(imageFile)}
+            alt="New Image"
+            width={"100"}
+            height={"100%"}
+          />
+        )}
         <br />
         <Button onClick={FormSubmit} variant="contained">
           {t("save")}

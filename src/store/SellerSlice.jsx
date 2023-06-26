@@ -9,7 +9,7 @@ export const index = createAsyncThunk(
     dispatch(startLoading());
     try {
       const res = await axios.get("allSellers", { params });
-      return res.data.sellers;
+      return res.data;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -65,6 +65,7 @@ export const update = createAsyncThunk(
 const initialState = {
   all: [],
   one: {},
+  count: 0,
   loading: false,
   error: null,
   success: null,
@@ -80,7 +81,8 @@ const SellerSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(index.fulfilled, (state, action) => {
-      state.all = action.payload;
+      state.all = action.payload.sellers;
+      state.count = action.payload.count;
       state.loading = false;
       state.error = null;
     });

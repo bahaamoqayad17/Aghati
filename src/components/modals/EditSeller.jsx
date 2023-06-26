@@ -91,12 +91,14 @@ export default function EditSeller(props) {
           name="address"
           fullWidth
         />
+
         <TextField
           onChange={handleChange}
           sx={style}
           id="outlined-select-currency"
-          value={item?.category?.nameAR}
+          value={item?.Category?.nameAR}
           select
+          defaultValue={item?.id ? item?.Category?.nameAR : "category"}
           fullWidth
           name="CategoryId"
           label={t("category")}
@@ -108,11 +110,13 @@ export default function EditSeller(props) {
             </MenuItem>
           ))}
         </TextField>
+
         <TextField
           onChange={handleChange}
           sx={style}
           id="outlined-select-currency"
           value={item?.role}
+          defaultValue={item?.id ? item?.role : "productSeller"}
           select
           fullWidth
           name="role"
