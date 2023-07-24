@@ -8,8 +8,8 @@ import { removeSubCategory } from "@/store/SubCategoriesSlice";
 
 export const resources = {
   sellers: {
-    headers: ["first_name", "last_name", "address", "status", "category"],
-    fields: ["firstName", "lastName", "address", "status", "Category.nameAR"],
+    headers: ["first_name", "last_name", "address", "status"],
+    fields: ["firstName", "lastName", "address", "status"],
     remove: removeSeller,
   },
   mainCategories: {
@@ -37,13 +37,29 @@ export const resources = {
     fields: ["name", "phone", "msgBody"],
   },
   deliveries: {
-    headers: ["first_name", "last_name", "address"],
-    fields: ["firstName", "lastName", "mobile"],
+    headers: ["first_name", "last_name", "status", "mobile_number"],
+    fields: ["firstName", "lastName", "status", "mobile"],
     remove: removeDelivery,
   },
   socialMedia: {
     headers: ["name", "link"],
     fields: ["type", "link"],
     remove: removeSocialMedia,
+  },
+  deliverySubCategory: {
+    headers: ["name", "image", "delivery_price", "created_at"],
+    fields: ["nameAR", "image", "deliveryPrice", "createdAt"],
+  },
+  deliveries_reports: {
+    headers: ["first_name", "last_name", "status", "mobile_number"],
+    fields: ["firstName", "lastName", "status", "mobile"],
+  },
+  sellers_reports: {
+    headers: ["first_name", "last_name", "address", "status"],
+    fields: ["firstName", "lastName", "address", "status"],
+  },
+  records: {
+    headers: ["name", "status", "total_price", "date"],
+    fields: ["name", "status", "totalPrice", "date"],
   },
 };

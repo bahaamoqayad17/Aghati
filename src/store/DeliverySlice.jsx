@@ -31,6 +31,33 @@ export const create = createAsyncThunk(
   }
 );
 
+export const getDeliveryRecords = createAsyncThunk(
+  "deliveries/getdeliveryRecords",
+  async (id, { rejectWithValue, dispatch }) => {
+    dispatch(startLoading());
+    try {
+      const res = await axios.get(`FinancialRecords/delivery/${id}`);
+
+      return res.data.data.orders;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteDeliveryRecords = createAsyncThunk(
+  "deliveries/deleteDeliveryRecords",
+  async (id, { rejectWithValue, dispatch }) => {
+    dispatch(startLoading());
+    try {
+      const res = await axios.delete(`FinancialRecords/delivery/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const removeDelivery = createAsyncThunk(
   "deliveries/delete",
   async (id, { rejectWithValue }) => {
@@ -84,6 +111,11 @@ const DeliverySlice = createSlice({
       state.loading = false;
       state.error = null;
     });
+    builder.addCase(getDeliveryRecords.fulfilled, (state, action) => {
+      state.all = action.payload;
+      state.loading = false;
+      state.error = null;
+    });
     builder.addCase(create.fulfilled, (state, action) => {
       FireToast("success", "Delivery Created Successfully");
       state.loading = false;
@@ -91,6 +123,11 @@ const DeliverySlice = createSlice({
     });
     builder.addCase(removeDelivery.fulfilled, (state, action) => {
       FireToast("warning", "Delivery Deleted Successfully");
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(deleteDeliveryRecords.fulfilled, (state, action) => {
+      FireToast("warning", "Records Cleared Successfully");
       state.loading = false;
       state.error = null;
     });

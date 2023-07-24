@@ -9,10 +9,17 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Button from "@mui/material/Button";
 import { useTranslation } from "react-i18next";
 import { resources } from "@/lib/resources";
 import DynamicMenu from "./DynamicMenu";
 import { CircularProgress } from "@mui/material";
+import PaidIcon from "@mui/icons-material/Paid";
+import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import Router from "next/router";
+import { useDispatch } from "react-redux";
+import { deleteDeliveryRecords } from "@/store/DeliverySlice";
+import { deleteSellerRecords } from "@/store/SellerSlice";
 
 export default function DataTable({
   items,
@@ -61,6 +68,17 @@ export default function DataTable({
 
     return value;
   };
+  const dispatch = useDispatch();
+
+  const handleDeleteOrder = (id) => {
+    if (window.confirm(t("delete_record"))) {
+      if (model === "sellers_reports") {
+        dispatch(deleteSellerRecords(id));
+      } else {
+        dispatch(deleteDeliveryRecords(id));
+      }
+    }
+  };
 
   return (
     <Card>
@@ -74,7 +92,7 @@ export default function DataTable({
                     {t(header)}
                   </TableCell>
                 ))}
-                {model === "messages" ? (
+                {model === "messages" || model === "records" ? (
                   ""
                 ) : (
                   <TableCell>{t("actions")}</TableCell>
@@ -102,12 +120,40 @@ export default function DataTable({
                         {getFieldValue(item, field)}
                       </TableCell>
                     ))}
-                    {model === "messages" ? (
+                    {model === "messages" ||
+                    model === "sellers_reports" ||
+                    model === "deliveries_reports" ||
+                    model === "records" ? (
                       ""
                     ) : (
                       <TableCell>
                         <DynamicMenu model={model} item={item} />
                       </TableCell>
+                    )}
+                    {model === "sellers_reports" ||
+                    model === "deliveries_reports" ? (
+                      <TableCell width={"200"}>
+                        <Button
+                          color="success"
+                          onClick={() =>
+                            Router.push(
+                              model === "sellers_reports"
+                                ? `/financials/sellers/${item.id}`
+                                : `/financials/deliveries/${item.id}`
+                            )
+                          }
+                        >
+                          <PaidIcon />
+                        </Button>
+                        <Button
+                          color="error"
+                          onClick={() => handleDeleteOrder(item.id)}
+                        >
+                          <PointOfSaleIcon />
+                        </Button>
+                      </TableCell>
+                    ) : (
+                      ""
                     )}
                   </TableRow>
                 ))}

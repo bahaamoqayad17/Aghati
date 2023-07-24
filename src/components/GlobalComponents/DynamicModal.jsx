@@ -9,6 +9,7 @@ import EditMainCategory from "../modals/EditMainCategory";
 import EditSubCategory from "../modals/EditSubCategory";
 import EditSocialMedia from "../modals/EditSocialMedia";
 import EditBanner from "../modals/EditBanner";
+import EditDeliverySubCategory from "../modals/EditDeliverySubCategory";
 
 const style = {
   position: "absolute",
@@ -39,6 +40,7 @@ export default function DynamicModal(props) {
     subCategories: EditSubCategory,
     banners: EditBanner,
     socialMedia: EditSocialMedia,
+    deliverySubCategory: EditDeliverySubCategory,
   };
 
   const DynamicComponentName = componentsName[props.model];

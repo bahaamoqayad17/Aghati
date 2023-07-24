@@ -65,14 +65,19 @@ export default function DynamicMenu({ item, model }) {
           <EditPenIcon fontSize="small" />
           &nbsp; {t("edit")}
         </MenuItem>
-        <MenuItem>
-          <ConfirmDialog
-            model={model}
-            id={item.id}
-            setOpen={setOpenMenu}
-            open={openMenu}
-          />
-        </MenuItem>
+
+        {model === "deliverySubCategory" ? (
+          ""
+        ) : (
+          <MenuItem>
+            <ConfirmDialog
+              model={model}
+              id={item.id}
+              setOpen={setOpenMenu}
+              open={openMenu}
+            />
+          </MenuItem>
+        )}
       </Menu>
     </>
   );

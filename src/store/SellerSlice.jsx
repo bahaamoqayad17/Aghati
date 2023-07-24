@@ -16,6 +16,32 @@ export const index = createAsyncThunk(
   }
 );
 
+export const getSellerRecords = createAsyncThunk(
+  "sellers/getSellerRecords",
+  async (id, { rejectWithValue, dispatch }) => {
+    dispatch(startLoading());
+    try {
+      const res = await axios.get(`FinancialRecords/seller/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteSellerRecords = createAsyncThunk(
+  "sellers/deleteSellerRecords",
+  async (id, { rejectWithValue, dispatch }) => {
+    dispatch(startLoading());
+    try {
+      const res = await axios.delete(`FinancialRecords/seller/${id}`);
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const create = createAsyncThunk(
   "sellers/create",
   async (item, { rejectWithValue, dispatch }) => {
@@ -80,9 +106,19 @@ const SellerSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(deleteSellerRecords.fulfilled, (state, action) => {
+      FireToast("warning", "Records Cleared Successfully");
+      state.loading = false;
+      state.error = null;
+    });
     builder.addCase(index.fulfilled, (state, action) => {
       state.all = action.payload.sellers;
       state.count = action.payload.count;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(getSellerRecords.fulfilled, (state, action) => {
+      state.all = action.payload.data.orders;
       state.loading = false;
       state.error = null;
     });

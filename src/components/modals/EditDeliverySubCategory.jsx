@@ -35,6 +35,7 @@ export default function EditSubCategory(props) {
     formData.append("nameEN", item?.nameEN);
     formData.append("nameAR", item?.nameAR);
     formData.append("nameKUR", item?.nameKUR);
+    formData.append("deliveryPrice", item?.deliveryPrice);
 
     if (props.item?.id) {
       formData.append("CategoryId", item.id);
@@ -73,6 +74,15 @@ export default function EditSubCategory(props) {
           onChange={handleChange}
           value={item?.nameKUR}
           name="nameKUR"
+          fullWidth
+        />
+        <TextField
+          sx={style}
+          label={t("deliveryPrice")}
+          onChange={handleChange}
+          value={item?.deliveryPrice}
+          name="deliveryPrice"
+          type="number"
           fullWidth
         />
 

@@ -12,7 +12,6 @@ import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import MessageIcon from "@mui/icons-material/Message";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import NavItem from "./NavItem";
-import Image from "next/image";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import BentoIcon from "@mui/icons-material/Bento";
@@ -20,6 +19,8 @@ import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 import TakeoutDiningIcon from "@mui/icons-material/TakeoutDining";
 import IntegrationInstructionsIcon from "@mui/icons-material/IntegrationInstructions";
 import TagIcon from "@mui/icons-material/Tag";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import SummarizeIcon from "@mui/icons-material/Summarize";
 
 const items = [
   {
@@ -46,6 +47,11 @@ const items = [
         href: "/categories/sub-categories",
         icon: <TakeoutDiningIcon fontSize="small" />,
         title: "sub_categories",
+      },
+      {
+        href: "/categories/delivery-sub-categories",
+        icon: <AirportShuttleIcon fontSize="small" />,
+        title: "delivery_sub_categories",
       },
     ],
   },
@@ -76,9 +82,14 @@ const items = [
     title: "financials",
     subMenu: [
       {
-        href: "/financials/reports",
+        href: "/financials/sellers",
+        icon: <SummarizeIcon fontSize="small" />,
+        title: "sellers_reports",
+      },
+      {
+        href: "/financials/deliveries",
         icon: <ReceiptLongIcon fontSize="small" />,
-        title: "reports",
+        title: "deliveries_reports",
       },
     ],
   },

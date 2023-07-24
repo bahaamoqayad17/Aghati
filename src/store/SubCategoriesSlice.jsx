@@ -16,6 +16,19 @@ export const index = createAsyncThunk(
   }
 );
 
+export const deliverySubCategory = createAsyncThunk(
+  "subCateogry/deliverySubCategory",
+  async (params, { rejectWithValue, dispatch }) => {
+    dispatch(startLoading());
+    try {
+      const res = await axios.get("deliverySubCategory", { params });
+      return res.data.subCategories;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 export const create = createAsyncThunk(
   "subCateogry/create",
   async (item, { rejectWithValue, dispatch }) => {
@@ -80,6 +93,11 @@ const SubCateogrySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(index.fulfilled, (state, action) => {
+      state.all = action.payload;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(deliverySubCategory.fulfilled, (state, action) => {
       state.all = action.payload;
       state.loading = false;
       state.error = null;
