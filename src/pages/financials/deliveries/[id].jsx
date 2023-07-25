@@ -17,6 +17,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { getDeliveryRecords } from "@/store/DeliverySlice";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import CircularProgress from "@mui/material/CircularProgress";
 const Page = () => {
   const { count, all, loading } = useSelector(({ delivries }) => delivries);
   const { id } = useRouter().query;
@@ -56,53 +64,85 @@ const Page = () => {
               <Typography sx={{ m: 1 }} variant="h3">
                 {t("all_records")}
               </Typography>
-              <Box sx={{ m: 1 }}>
-                {/* <DynamicModal
-                  setOpenModal={setOpenModal}
-                  open={openModal}
-                  model="sellers"
-                />
-
-                <Button
-                  onClick={handleOpenModel}
-                  color="primary"
-                  variant="contained"
-                >
-                  {t("add_seller")}
-                </Button> */}
-              </Box>
+              <Box sx={{ m: 1 }}></Box>
             </Box>
-            <Box sx={{ mt: 3 }}>
-              {/* <Card>
-                <CardContent>
-                  <Box sx={{ maxWidth: 500 }}>
-                    <TextField
-                      onKeyPress={(e) => search(e)}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <SvgIcon color="action" fontSize="small">
-                              <Search />
-                            </SvgIcon>
-                          </InputAdornment>
-                        ),
-                      }}
-                      placeholder={t("search_sellers")}
-                      variant="outlined"
-                    />
-                  </Box>
-                </CardContent>
-              </Card> */}
-            </Box>
+            <Box sx={{ mt: 3 }}></Box>
           </Box>
           <Box sx={{ mt: 3 }}>
-            <DataTable
-              getPagination={getPagination}
-              model={"records"}
-              loading={loading}
-              items={all}
-              count={count}
-            />
+            <Card>
+              <PerfectScrollbar>
+                <Box sx={{ minWidth: 1050 }}>
+                  <Table>
+                    <TableHead>
+                      <TableRow>
+                        {!loading && (
+                          <>
+                            {all[0].Order?.name ? (
+                              <>
+                                <TableCell>{t("name")}</TableCell>
+                                <TableCell>{t("status")}</TableCell>
+                                <TableCell>{t("totalPrice")}</TableCell>
+                                <TableCell>{t("date")}</TableCell>
+                                <TableCell>{t("type")}</TableCell>
+                              </>
+                            ) : (
+                              <>
+                                <TableCell>{t("status")}</TableCell>
+                                <TableCell>{t("type")}</TableCell>
+                                <TableCell>{t("price")}</TableCell>
+                              </>
+                            )}
+                          </>
+                        )}
+                      </TableRow>
+                    </TableHead>
+                    {loading ? (
+                      <TableBody>
+                        <TableRow>
+                          <TableCell colSpan={20} align="center">
+                            <CircularProgress />
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    ) : (
+                      <TableBody>
+                        {all[0].Order?.name ? (
+                          <>
+                            {all?.map((item) => (
+                              <TableRow hover key={item.id}>
+                                <TableCell>{item.Order?.name}</TableCell>
+                                <TableCell>{item.Order?.status}</TableCell>
+                                <TableCell>{item.Order?.totalPrice}</TableCell>
+                                <TableCell>{item.Order?.date}</TableCell>
+                                <TableCell>
+                                  {item.OrderDelivery?.type}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </>
+                        ) : (
+                          <>
+                            {all?.map((item) => (
+                              <TableRow hover key={item.id}>
+                                <TableCell>
+                                  {item.OrderDelivery?.status}
+                                </TableCell>
+                                <TableCell>
+                                  {item.OrderDelivery?.type}
+                                </TableCell>
+                                <TableCell>
+                                  {item.OrderDelivery?.price}
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </>
+                        )}
+                      </TableBody>
+                    )}
+                  </Table>
+                </Box>
+              </PerfectScrollbar>
+            </Card>
           </Box>
         </Container>
       </Box>

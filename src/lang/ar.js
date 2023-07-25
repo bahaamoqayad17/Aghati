@@ -84,5 +84,13 @@ export const ar = {
     all_records: "جميع السجلات",
     delete_record: "هل أنت متأكد من أنك تريد حذف هذا السجل ؟",
     total_price: "السعر الكلي",
+    city: "المدينة",
+    street: "الشارع",
+    buildNumber: "رقم المبنى",
+    serviceType: "نوع الخدمة",
+    latitude: "خط العرض",
+    longitude: "خط الطول",
+    all_deliveries_reports: "جميع تقارير عمال التوصيل",
+    all_sellers_reports: "جميع تقارير البائعين",
   },
 };

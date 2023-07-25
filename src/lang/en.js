@@ -86,5 +86,11 @@ export const en = {
     all_records: "All Records",
     delete_record: "Are You Sure You Want to Delete This Record ?",
     total_price: "Total Price",
+    city: "City",
+    street: "Street",
+    buildNumber: "Build Number",
+    serviceType: "Service Type",
+    longitude: "Longitude",
+    latitude: "Latitude",
   },
 };

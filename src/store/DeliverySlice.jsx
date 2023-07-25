@@ -38,7 +38,7 @@ export const getDeliveryRecords = createAsyncThunk(
     try {
       const res = await axios.get(`FinancialRecords/delivery/${id}`);
 
-      return res.data.data.orders;
+      return res.data.data;
     } catch (error) {
       return rejectWithValue(error);
     }
