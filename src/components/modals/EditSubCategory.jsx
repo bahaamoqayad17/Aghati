@@ -35,9 +35,10 @@ export default function EditSubCategory(props) {
     formData.append("nameEN", item?.nameEN);
     formData.append("nameAR", item?.nameAR);
     formData.append("nameKUR", item?.nameKUR);
+    formData.append("CategoryId", item?.CategoryId);
 
     if (props.item?.id) {
-      formData.append("CategoryId", item.id);
+      formData.append("SubCategoryId", item?.id);
       dispatch(update(formData));
     } else {
       dispatch(create(formData));
