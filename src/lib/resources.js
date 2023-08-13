@@ -19,7 +19,7 @@ export const resources = {
   },
   subCategories: {
     headers: ["name", "image", "category_parent", "created_at"],
-    fields: ["nameAR", "image", "Category.nameAR", "createdAt"],
+    fields: ["nameAR", "image", "Category?.nameAR", "createdAt"],
     remove: removeSubCategory,
   },
   banners: {

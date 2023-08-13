@@ -169,8 +169,8 @@ export default function EditSeller(props) {
             autocomplete="category"
           >
             {all?.map((option) => (
-              <MenuItem key={option.id} value={option.id}>
-                {option.nameAR}
+              <MenuItem key={option?.id} value={option?.id}>
+                {option?.nameAR}
               </MenuItem>
             ))}
           </TextField>
