@@ -5,31 +5,18 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import { create } from "@/store/DeliverySlice";
 import { update } from "@/store/DeliverySlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { index } from "@/store/MainCategoriesSlice";
 
 const style = {
   marginBottom: "30px",
 };
 
-const types = [
-  {
-    value: "Taxi cars",
-    label: "taxi_cars",
-  },
-  {
-    value: "Transport buses",
-    label: "transport_buses",
-  },
-  {
-    value: "Freight",
-    label: "freight",
-  },
-];
-
 export default function EditDelivery(props) {
   const dispatch = useDispatch();
   const [item, setitem] = useState(props.item);
+  const { all } = useSelector(({ delivries }) => delivries);
   const { t } = useTranslation();
 
   const handleChange = (e) => {
@@ -44,6 +31,10 @@ export default function EditDelivery(props) {
       dispatch(create(item));
     }
   };
+
+  useEffect(() => {
+    dispatch(index());
+  }, []);
   return (
     <>
       <Box>
@@ -94,9 +85,9 @@ export default function EditDelivery(props) {
           label={t("type")}
           autoComplete="type"
         >
-          {types?.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {t(option.label)}
+          {all?.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.nameAR}
             </MenuItem>
           ))}
         </TextField>
