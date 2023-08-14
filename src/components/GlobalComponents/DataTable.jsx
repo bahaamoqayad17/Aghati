@@ -62,8 +62,8 @@ export default function DataTable({
         />
       );
     }
-    if (field === "createdAt") {
-      return new Date(object.createdAt).toLocaleString();
+    if (field === "createdAt" || field === "startDate" || field === "endDate") {
+      return new Date(object[field]).toDateString();
     }
 
     return value;

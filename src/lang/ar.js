@@ -92,5 +92,10 @@ export const ar = {
     longitude: "خط الطول",
     all_deliveries_reports: "جميع تقارير عمال التوصيل",
     all_sellers_reports: "جميع تقارير البائعين",
+    transport_buses: "الحافلات النقلية",
+    taxi_cars: "السيارات التكسي",
+    freight: "الشحن",
+    type: "النوع",
+    endDate: "تاريخ النهاية",
   },
 };

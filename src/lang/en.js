@@ -92,5 +92,10 @@ export const en = {
     serviceType: "Service Type",
     longitude: "Longitude",
     latitude: "Latitude",
+    transport_buses: "Transport Buses",
+    taxi_cars: "Taxi Cars",
+    freight: "Freight",
+    type: "Type",
+    endDate: "End Date",
   },
 };

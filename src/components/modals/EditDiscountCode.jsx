@@ -1,11 +1,11 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { create } from "@/store/DiscountCodeSlice";
 import { update } from "@/store/DiscountCodeSlice";
-import { t } from "i18next";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const style = {
   marginBottom: "30px",
@@ -14,6 +14,9 @@ const style = {
 export default function EditDiscountCode(props) {
   const dispatch = useDispatch();
   const [item, setitem] = useState(props.item);
+  const [startDate, setStartDate] = useState(props?.item?.startDate);
+  const [endDate, setEndDate] = useState(props?.item?.endDate);
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setitem({ ...item, [e.target.name]: e.target.value });
@@ -47,22 +50,52 @@ export default function EditDiscountCode(props) {
           name="discount"
           fullWidth
         />
-        <TextField
-          sx={style}
-          label={t("startDate")}
-          onChange={handleChange}
-          value={item?.startDate}
+
+        <p>{t("startDate")}</p>
+        <input
+          style={{
+            marginBottom: "30px",
+            width: "100%",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
+          type="date"
           name="startDate"
-          fullWidth
+          value={startDate}
+          onChange={(e) => {
+            setStartDate(e.target.value);
+            const selectedDate = new Date(e.target.value);
+            const formattedDate = `${selectedDate.getDate()}/${
+              selectedDate.getMonth() + 1
+            }/${selectedDate.getFullYear()}`;
+            setitem({ ...item, startDate: formattedDate });
+          }}
         />
-        <TextField
-          sx={style}
-          label={t("password")}
-          onChange={handleChange}
-          value={item?.endDate}
+
+        <p>{t("endDate")}</p>
+
+        <input
+          style={{
+            marginBottom: "30px",
+            width: "100%",
+            padding: "10px",
+            borderRadius: "5px",
+            border: "1px solid #ccc",
+          }}
+          type="date"
           name="endDate"
-          fullWidth
+          value={endDate}
+          onChange={(e) => {
+            setEndDate(e.target.value);
+            const selectedDate = new Date(e.target.value);
+            const formattedDate = `${selectedDate.getDate()}/${
+              selectedDate.getMonth() + 1
+            }/${selectedDate.getFullYear()}`;
+            setitem({ ...item, endDate: formattedDate });
+          }}
         />
+
         <Button onClick={FormSubmit} variant="contained">
           {t("save")}
         </Button>

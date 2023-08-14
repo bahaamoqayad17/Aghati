@@ -33,13 +33,13 @@ export const create = createAsyncThunk(
 
 export const removeDiscountCode = createAsyncThunk(
   "discountCode/delete",
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const res = await axios.delete("deleteDiscountCode", {
         data: { DiscountCodeId: id },
       });
       dispatch(index());
-      return { message: "success" };
+      return res;
     } catch (error) {
       FireToast("error", error.response?.data?.message[0]);
       return rejectWithValue(error);

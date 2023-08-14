@@ -1,19 +1,36 @@
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
+import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
 import { create } from "@/store/DeliverySlice";
 import { update } from "@/store/DeliverySlice";
-import { t } from "i18next";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const style = {
   marginBottom: "30px",
 };
 
+const types = [
+  {
+    value: "Taxi cars",
+    label: "taxi_cars",
+  },
+  {
+    value: "Transport buses",
+    label: "transport_buses",
+  },
+  {
+    value: "Freight",
+    label: "freight",
+  },
+];
+
 export default function EditDelivery(props) {
   const dispatch = useDispatch();
   const [item, setitem] = useState(props.item);
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     setitem({ ...item, [e.target.name]: e.target.value });
@@ -64,6 +81,26 @@ export default function EditDelivery(props) {
           type="password"
           fullWidth
         />
+
+        <TextField
+          onChange={handleChange}
+          sx={style}
+          id="outlined-select-currency"
+          value={item?.type}
+          defaultValue={item?.type}
+          select
+          fullWidth
+          name="type"
+          label={t("type")}
+          autoComplete="type"
+        >
+          {types?.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {t(option.label)}
+            </MenuItem>
+          ))}
+        </TextField>
+
         <Button onClick={FormSubmit} variant="contained">
           {t("save")}
         </Button>
