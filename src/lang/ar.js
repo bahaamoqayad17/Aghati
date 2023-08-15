@@ -97,5 +97,7 @@ export const ar = {
     freight: "الشحن",
     type: "النوع",
     endDate: "تاريخ النهاية",
+    delivery_man: "رجل توصيل",
+    price: "المبلغ",
   },
 };

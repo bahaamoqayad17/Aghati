@@ -62,6 +62,7 @@ export default function DataTable({
         />
       );
     }
+
     if (field === "createdAt" || field === "startDate" || field === "endDate") {
       return new Date(object[field]).toDateString();
     }

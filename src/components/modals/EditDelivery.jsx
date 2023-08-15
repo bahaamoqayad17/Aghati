@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { create } from "@/store/DeliverySlice";
 import { update } from "@/store/DeliverySlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +13,28 @@ const style = {
   marginBottom: "30px",
 };
 
+const types = [
+  {
+    value: "Transport buses",
+    label: "transport_buses",
+  },
+  {
+    value: "Taxi cars",
+    label: "taxi_cars",
+  },
+  {
+    value: "Freight",
+    label: "freight",
+  },
+  {
+    value: "Delivery Man",
+    label: "delivery_man",
+  },
+];
+
 export default function EditDelivery(props) {
   const dispatch = useDispatch();
   const [item, setitem] = useState(props.item);
-  const { all } = useSelector(({ delivries }) => delivries);
   const { t } = useTranslation();
 
   const handleChange = (e) => {
@@ -32,9 +50,6 @@ export default function EditDelivery(props) {
     }
   };
 
-  useEffect(() => {
-    dispatch(index());
-  }, []);
   return (
     <>
       <Box>
@@ -85,9 +100,9 @@ export default function EditDelivery(props) {
           label={t("type")}
           autoComplete="type"
         >
-          {all?.map((option) => (
-            <MenuItem key={option.id} value={option.id}>
-              {option.nameAR}
+          {types?.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {t(option.label)}
             </MenuItem>
           ))}
         </TextField>

@@ -97,5 +97,7 @@ export const en = {
     freight: "Freight",
     type: "Type",
     endDate: "End Date",
+    delivery_man: "Delivery Man",
+    price: "Price",
   },
 };

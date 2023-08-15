@@ -77,7 +77,7 @@ const Page = () => {
                       <TableRow>
                         {!loading && (
                           <>
-                            {all[0].Order?.name ? (
+                            {all[0]?.Order?.name ? (
                               <>
                                 <TableCell>{t("name")}</TableCell>
                                 <TableCell>{t("status")}</TableCell>
@@ -106,7 +106,7 @@ const Page = () => {
                       </TableBody>
                     ) : (
                       <TableBody>
-                        {all[0].Order?.name ? (
+                        {all[0]?.Order?.name ? (
                           <>
                             {all?.map((item) => (
                               <TableRow hover key={item.id}>
@@ -123,15 +123,15 @@ const Page = () => {
                         ) : (
                           <>
                             {all?.map((item) => (
-                              <TableRow hover key={item.id}>
+                              <TableRow hover key={item?.id}>
                                 <TableCell>
-                                  {item.OrderDelivery?.status}
+                                  {item?.OrderDelivery?.status}
                                 </TableCell>
                                 <TableCell>
-                                  {item.OrderDelivery?.type}
+                                  {item?.OrderDelivery?.type}
                                 </TableCell>
                                 <TableCell>
-                                  {item.OrderDelivery?.price}
+                                  {item?.OrderDelivery?.price}
                                 </TableCell>
                               </TableRow>
                             ))}
